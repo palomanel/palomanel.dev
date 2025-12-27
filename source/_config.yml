@@ -1,7 +1,6 @@
 # Site settings, check https://github.com/devich/quick/blob/main/_config.yml
 # for more details about available options.
 remote_theme: devich/quick@0.0.1
-exclude: [README.md]
 lang: en-US # e.g. uk, pl, en-US
 bg_color: dark # can be dark, light or auto
 # theme-color is the main accent color and can be red, pink, fuchsia, purple, violet, indigo, blue, azure, cyan, jade, green,
@@ -11,4 +10,4 @@ title: Pálo Manel
 author: Paulo Albuquerque
 description: Paulo Albuquerque's personal development blog. Created using GitHub Pages and the Quick theme.
 keywords: github pages, jekyll theme, personal blog, quick theme
-# gtag: G-X7HSHVZDZT # Google Analytics tag (e.g. G-A1BCDEFGHI). Please replace it with YOUR tag.
+gtag: G-JJNC7Y7PK1 # Google Analytics tag.

@@ -1,4 +1,4 @@
 # palomanel.dev
 
-Personal blog created using [GitHub Pages](https://docs.github.com/en/pages/)
-and the [quick theme](https://github.com/devich/quick).
+Personal blog hosted on [GitHub Pages](https://docs.github.com/en/pages/), 
+created using [Jekyll](https://jekyllrb.com/) and the [quick theme](https://github.com/devich/quick).
