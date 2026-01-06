@@ -4,15 +4,17 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Hello there!
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I'm [Paulo Albuquerque](https://github.com/palomanel) and this is
+my personal development blog.
+Here you can find the record of my experiments, including useful
+insights, learnings from my failures, and an occasional rant.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+You can check the source code and the scaffolding for this blog on
+[GitHub](https://github.com/palomanel/palomanel.dev). It is hosted on
+[GitHub pages](https://docs.github.com/en/pages) and built with
+[Jekyll](https://jekyllrb.com/).
 
+© 2025 Paulo Albuquerque. This work is openly licensed via [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en).
 
-[jekyll-organization]: https://github.com/jekyll
