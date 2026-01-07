@@ -1,11 +1,16 @@
 # Articles
 
-All the files inside the `source` folder are licensed under
+All the text and markdown files inside the `source` folder are licensed under
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). 
+
+# Images and Screenshots
+
+All images and screenshots are copyrighted and owned by Paulo Albuquerque,
+unless stated otherwise.
 
 # Other files
 
-Files not mentioned in previous paragraphs are licensed under MIT License.
+Files not mentioned in previous paragraphs are licensed under the MIT License.
 
 ## MIT License
 
