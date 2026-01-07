@@ -159,10 +159,10 @@ up and running!
 
 ### Setting up the necessary tooling
 
-Now to improve my on development workflow, maybe development workflow is
+Time to improve my development workflow, maybe pusblishing workflow is
 the more adequate term, and improve the project's tooling a bit. The objective:
-submitting channges, creating new blog posts, and previewing should be as simple
-and seamless as possible.
+submitting channges, creating new blog posts, and previewing the final output
+should be as simple and seamless as possible.
 
 Any project should have a [.gitignore](https://git-scm.com/docs/gitignore) file,
 that specifies intentionally untracked files that should be ignored. 
@@ -203,3 +203,70 @@ on:
       - 'source/**'
       - '.github/workflows/jekyll-gh-pages.yml'
 ```
+
+To avoid polluting my local environment, and to better handle different
+package versions I decided to use Jekyll from inside a container.
+I'm a big fan of [Development Containers](https://containers.dev/)
+and Visual Studio Code has great support for them, you just need to
+install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+and you're ready to start [developing inside a container](https://code.visualstudio.com/docs/devcontainers/containers).
+
+After you have the extension bring up the VS Code command palette and
+type `Dev Containers` for a full list of commands.
+Choosing `Dev Containers: Add Development Container Configuration Files…`
+will let you choose from a list of predefined templates, and there's one for Jekyll!
+That gave me a great starting point, just had to make a couple of changes:
+added a few VS Code extensions and added a `postStartCommand` so that the Jekyll
+preview was available immediately upon opening the project.
+
+```json
+{
+  "name": "Jekyll",
+
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/jekyll:2-bullseye",
+
+  // Use 'postStartCommand' to run commands after the container starts.
+  "postStartCommand": "cd ${containerWorkspaceFolder}/source && jekyll clean && jekyll serve --livereload",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "GitHub.vscode-github-actions"
+      ]
+    }
+  }
+}
+```
+
+Check the [feat: tooling improvements](https://github.com/palomanel/palomanel.dev/commit/4ea663b49eba9b57e7cebb329d1487bf066e2b14)
+commit on the repo to see all the changes I made at this stage.
+
+### The first blog entry
+
+I understood very early on that my initial approach with
+the Quick template was a dead-end. So before actually starting to
+write my first blog post I recreated everything inside `source`
+with `jekyll new`. I had to review `_config.yml` to make sure
+it had the necessary entries for the [minima](https://github.com/jekyll/minima)
+theme, the default one. And I was set.
+The theme is blog aware so I didn't really need to
+make any changes to the layout. It's not perfect but it will do for now.
+
+Then came the actuall writing... As I was using my devcontainer I was
+able to see the changes immediately on my local environment, providing
+a very interactive experience.
+The only thing to consider is that jekyll needs to be restarted every time
+`_config.yml` is changed. Using `jekyll serve --livereload` any changes
+to the source markdown are detected, and everything is rendered.
+The browser even refreshes automatically with the `--livereload` option.
+
+### Closing thoughts
+
+I'm pretty happy with my current setup, although I already have some ideas for
+improvement. Hopefully the lenghty post will be useful for others to
+understand what's under the hood. If you would like to leave any comments
+or point out any mistakes or problems, please feel free to submit an issue!
