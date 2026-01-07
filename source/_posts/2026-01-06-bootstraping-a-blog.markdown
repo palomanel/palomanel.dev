@@ -197,9 +197,8 @@ simple tweak to the `on` clause in `jekyll-gh-pages.yml`.
 on:
   # Runs on pushes targeting `main` branch and the specified paths
   push:
-    branches: ["main"]
     branches:
-      - "main"
+      - 'main'
     paths:
       - 'source/**'
       - '.github/workflows/jekyll-gh-pages.yml'
