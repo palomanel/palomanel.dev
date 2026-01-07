@@ -16,7 +16,7 @@
 	// "postCreateCommand": "jekyll --version"
 
     // Use 'postStartCommand' to run commands after the container starts.
-    "postStartCommand": "cd ${containerWorkspaceFolder}/source && jekyll clean && jekyll serve",
+	"postStartCommand": "cd ${containerWorkspaceFolder}/source && jekyll clean && jekyll serve --livereload",
 
 	// Configure tool-specific properties.
 	"customizations": {
