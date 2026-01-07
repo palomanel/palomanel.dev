@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Bootstraping a Jekyll Blog"
-date:   2026-01-06
+date:   2026-01-07
 categories: jekyll update
 ---
 
