@@ -159,7 +159,7 @@ up and running!
 
 ### Setting up the necessary tooling
 
-Now I needed to improve my on development workflow, maybe development workflow is
+Now to improve my on development workflow, maybe development workflow is
 the more adequate term, and improve the project's tooling a bit. The objective:
 submitting channges, creating new blog posts, and previewing should be as simple
 and seamless as possible.
