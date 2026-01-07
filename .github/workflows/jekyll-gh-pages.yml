@@ -2,10 +2,10 @@
 name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting `main` branch and the specified paths
   push:
     branches:
-      - "main"
+      - 'main'
     paths:
       - 'source/**'
       - '.github/workflows/jekyll-gh-pages.yml'
