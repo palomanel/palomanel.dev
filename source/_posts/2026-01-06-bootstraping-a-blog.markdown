@@ -85,8 +85,8 @@ but I liked what I saw: transparent pricing, essential features like WHOIS priva
 and SSL are free, and the UI is clean and simple.
 Seemed perfect for a small personal project.
 
-The next step was rendering [Lorem Ipsum](https://www.lipsum.com/)
-on my new website. After [creating a new repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)
+Up next, rendering [Lorem Ipsum](https://www.lipsum.com/)
+on the new website. After [creating a new repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)
 I put together a site skeleton using the
 [Quick Jekyll theme](https://github.com/devich/quick).
 I separated the Jekyll source files into a `source` folder, 
@@ -95,7 +95,7 @@ triggering workflows only when needed.
 Let's have a look at the [initial commit](https://github.com/palomanel/palomanel.dev/commit/519bbf0673b2a016c7bf60fef1beab5452bf4527):
 
 - `.github/workflows/jekyll-gh-pages.yml` is the workflow that will render
-markdown into html, this is optional as after
+markdown into HTML, this is optional as after
 [configuring a publishing source for GitHub pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 the rendering will happen automatically, but I wanted the extra visibility
 so I picked up the file from the very useful
@@ -147,7 +147,10 @@ challenge is met successfully.
 
 ![The configuration should look something like this](/assets/images/2026-01-06-GitHub-Pages-configuration.jpg)
 
-If you point your web browser to your custom domain name you should see your static website up and running!
+And *voilà* Pointing a web browser to the custom domain name should display a new static website
+up and running!
+
+![Lorem Ipsum](/assets/images/2026-01-06-Lorem-Ipsum.jpg)
 
 ### Setting up the necessary tooling
 
