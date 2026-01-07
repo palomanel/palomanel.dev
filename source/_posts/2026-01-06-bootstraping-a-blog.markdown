@@ -9,17 +9,15 @@ I created my first blog back in the noughties, it was 2005 and blogging felt
 new and wonderful.
 Every couple of weeks I would write about pretty much anything I had on my
 mind in my online journal.
-My audience was mostly family and friends, but writing is always a great way
+My audience was mostly family and friends, but writing has always been great way
 to organize one's thougths.
 I had a good run, lasting until 2012, before abandoning blogging.
 The website is still up on a Portuguese speaking corner of `blogspot.com`,
 available for nostalgia trips.
 
 Fast forward 14 years and the world has evolved quite a bit.
-Technology is not a niche thing anymore, there's a handful of tech companies
-that are now household names. The internet has grown into a huge sprawl of
-online neighborhoods, and there's been a lot of roles and skills that
-have grown with it. Everything has become more professional, and to communicate
+The internet is not only for geeks anymore and hass grown into a huge sprawl of
+online neighborhoods. Everything has become more professional, and to communicate
 online you need to have both a strong focus and a good understanding of the
 tools of the trade.
 
@@ -35,14 +33,14 @@ of platforms to host your content. I considered a few key dimensions when
 making the choice:
 
 1. **Target audience** and the corner of the internet where they hang around
-2. **Reliability and scalability**, your content should always up and safe from
-unwanted interference
+2. **Reliability and scalability** are normally taken for granted, content should
+always up and safe from tampering, but guarantees are needed
 3. **Ease of use and customization options** depend a lot on the content type,
 but writing should be a frictionless experience nonetheless
 4. **Cost and monetization options** are important, even more so if you
 intend to make a profit somehow
 
-My requirements are easy:
+My requirements are easy to define:
 
 1. I will be writing for a technical audience, so I'm looking for a friendly
 neighbourhood for that type of content
@@ -256,7 +254,7 @@ theme, the default one. And I was set.
 The theme is blog aware so I didn't really need to
 make any changes to the layout. It's not perfect but it will do for now.
 
-Then came the actuall writing... As I was using my devcontainer I was
+Then came the actual writing... As I was using my devcontainer I was
 able to see the changes immediately on my local environment, providing
 a very interactive experience.
 The only thing to consider is that jekyll needs to be restarted every time
