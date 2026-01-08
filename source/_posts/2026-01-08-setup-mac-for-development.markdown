@@ -1,19 +1,17 @@
 ---
 layout: post
-title:  "Setting up a Mac as development machine"
+title:  "Setting up a new Mac for development work"
 date:   2026-01-08
 categories: jekyll update
 ---
 
-This is a quick and and opinionated guide to prepare a Mac for development work.
-The main purpose of the guide is collecting fragmented information that can be
-found scattered around the web.
+This is a quick and personal guide to prepare a Mac for development work.
+It covers the bare mininum steps to turn a brand new Mac into
+a useful development machine. Only general use tools are covered,
+my advice on installing specific tools or languages is: use a devcontainer,
+your enviroment will be cleaner, easier to replicate, debug and maintain.
 
-This document is provided “AS IS”, without any guarantee of any kind. Keep in
-mind that some of the software mentioned here might have changed the options or
-defaults since the time of writing.
-
-### Install Apple developer tools
+### Apple developer tools
 
 The [Apple Developer Tools](https://en.wikipedia.org/wiki/Apple_Developer_Tools)
 are a suite of software tools from Apple to aid in making software dynamic
@@ -21,7 +19,7 @@ titles for the macOS and iOS platforms.
 
 One of the main tools in the bundle is Xcode, which is also available as
 a free download from the Mac App Store. However there's a lot of other useful tools
-included, the main one being `git`.
+included, the one I'm after is `git`.
 
 This pulls the Apple developer tools:
 
@@ -29,7 +27,7 @@ This pulls the Apple developer tools:
 xcode-select --install
 ```
 
-## Configure Secure Shell Protocol
+### Secure Shell Protocol
 
 The Secure Shell Protocol ([SSH Protocol](https://en.wikipedia.org/wiki/Secure_Shell)) 
 continues to be the standard for operating network services over unsecured
@@ -70,7 +68,7 @@ Configure your shell to load the Keychain whenever an interactive session is sta
 echo "ssh-add --apple-load-keychain -q" >> ~/.zshrc
 ```
 
-### Configure Git
+### Git source control
 
 [Git](https://en.wikipedia.org/wiki/Git) is a distributed version control
 system, that is capable of managing versions of source code or data.
@@ -88,7 +86,11 @@ git config --global user.name "John Doe"
 git config --global user.email "example@mail.com"
 ```
 
-You should also configure git to sign your commits:
+Having configured secure shell enables using git over `ssh` transport
+to interact with external repos. To provide some protection against
+[supply chain attacks](https://en.wikipedia.org/wiki/Supply_chain_attack)
+you should also set up `git` to sign your commits. The following recipe
+will help with the local setup:
 
 ```bash
 git config --global gpg.format ssh
@@ -100,7 +102,7 @@ echo "example@mail.com $(cat ~/.ssh/id_ed25519.pub)" > ~/.config/git/allowed-sig
 git config --global gpg.ssh.allowedSignersFile "~/.config/git/allowed-signers"
 ```
 
-### Install homebrew
+### Homebrew
 
 [Homebrew](https://brew.sh/) is an open-source package manager for macOS (and nowadays Linux).
 It simplifies the installation of software packages by providing a simple CLI interface,
@@ -121,18 +123,30 @@ The easiest way is just running:
 echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile
 ```
 
-### Install Alacritty
+Then add your public key in the code hosting services you'll be using.
+Keep in mind you'll need to add the same key for two different purposes:
+- **Authentication key**
+- **Signing key**
 
-Alacritty is a modern terminal emulator that comes with sensible defaults, but allows
+Here's how it looks on GitHub, if you check I have added the same public key
+for both purposes.
+
+![GitHub keys](/assets/images/2026-01-08-GitHub-keys.jpg)
+
+### A Terminal alternative
+
+The native MacOS `Terminal` app is a bit lacking, so I typically install something else.
+[iTerm](https://iterm2.com) is a good option, but recently I started using
+[Alacritty](https://alacritty.org/), which is Open Source and written in Rust and allows
 for extensive [configuration](https://github.com/alacritty/alacritty#configuration).
 By integrating with other applications, rather than reimplementing their functionality,
 it manages to provide a flexible set of [features](https://github.com/alacritty/alacritty/blob/master/docs/features.md)
-with high performance. The supported platforms currently consist of BSD, Linux, macOS
-and Windows.
+with high performance.
 
+The supported platforms currently consist of BSD, Linux, macOS
+and Windows.
 The software is considered to be at a beta level of readiness; there are a few missing
 features and bugs to be fixed, but it is already used by many as a daily driver.
-
 Precompiled binaries are available from the GitHub [releases page](https://github.com/alacritty/alacritty/releases).
 
 Mac OSX will refuse to run the app as the binary is not currently signed, to be able
@@ -142,7 +156,7 @@ to use Alacritty it will be necessary to tweak its file attributes.
 xattr -dr com.apple.quarantine "/Applications/Alacritty.app"
 ```
 
-### Install Docker
+### Docker Desktop
 
 Docker is an open platform for developing, shipping, and running applications.
 It enables you to separate your applications from your infrastructure
@@ -156,7 +170,8 @@ small businesses (fewer than 250 employees AND less than $10 million
 in annual revenue), education, and non-commercial open-source projects.
 For all other commercial use, a paid subscription is required.
 
-Docker Compose is a simple tool for defining and running multi-container
+[Docker Compose](https://docs.docker.com/compose/) is a simple
+tool for defining and running multi-container
 applications. It is often used to define simulate complex architectures
 in a developer machine.
 
@@ -168,7 +183,12 @@ brew install --cask docker-desktop
 brew install docker-compose
 ```
 
-### Install and Configure VS Code
+On MacOS docker runs on top of a virtual machine, an approach that has its
+drawbacks. In the past year Apple has released
+[Apple native containers](https://github.com/apple/container) a native
+and lightweight solution. But that's a post for another day.
+
+### Visual Studio Code
 
 Visual Studio Code (commonly referred to as VS Code) is an integrated
 development environment developed by Microsoft for Windows, Linux, macOS
@@ -182,10 +202,13 @@ Visual Studio Code is proprietary software released under the "Microsoft
 Software License", but based on the MIT licensed program named [Visual Studio Code
 – Open Source](https://github.com/microsoft/vscode).
 
-Install VS Code using brew, then you can then install any extensions you need,
+Install VS Code using `brew`, then you can then install any extensions you need,
 like the [DevContainers](https://containers.dev/) extension.
 
 ```bash
 brew install --cask visual-studio-code
 code --install-extension ms-vscode-remote.remote-containers
 ```
+
+By the way, the DevContainers extension will automatically pick up your
+`git` configuration, so you won't need to repeat the steps above.
