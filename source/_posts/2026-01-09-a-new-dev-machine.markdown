@@ -1,48 +1,48 @@
 ---
 layout: post
-title:  "A new development machine"
+title:  "A new Mac development machine"
 date:   2026-01-08
 categories: jekyll update
 ---
 
 Black Friday is a great opportunity to find new gear at reasonable
 prices, so having used the same personal laptop for eight years,
-I thought that it was time this year.
+this year I decided it was time to go bargain hunting.
 
-To be honest my old machine aged quite well, and it was still my
-main workhorse for personal projects. With an Intel Core i5-826SU
+To be honest my old machine aged quite well, and is still capable
+as the main workhorse for personal projects. With an Intel Core i5-826SU
 with 8 cores, integrated GPU, 8 Gb of memory, and Ubuntu on top, it
-just runs great. Objectively the only problem with it is a
+runs just great. Objectively the only problem with it is a
 creaking hinge.
 
-So why upgrade? A faster processor wont't hurt, but GPU and memory is what you need
+So why upgrade? A faster processor wont't hurt, but GPU and memory are needed
 for [AI inference](https://www.cloudflare.com/learning/ai/inference-vs-training/).
-I also wanted to maintain all the checkmarks in the wishlist I laid out
-for my old machine:
+I also wanted to maintain or improve upon all the checkmarks in the wishlist
+I laid out for my old machine:
 
-* a high-resolution 13"-14" screen
-* small and light form factor
-* sturdy build
-* USB-C connectivity, including the ability for the laptop to be powered by an external monitor
+- [x] a high-resolution 13"-14" screen
+- [x] small and light form factor
+- [x] sturdy build
+- [x] USB-C connectivity, including the ability for the laptop to be powered by an external monitor
 
 ### Choosing a new laptop
 
 While shopping around I had two main questions on my mind:
 
-* **MacOS** or **Linux**?
-  * **MacOS** is a polished experience, bound by a tightly
+- **MacOS** or **Linux**?
+  - **MacOS** is a polished experience, bound by a tightly
   integrated ecosystem that can be a blessing or a limitation
   depending on what you're trying to do.
-  * **Linux** provides a lot of freedom and flexibility, at
+  - **Linux** provides a lot of freedom and flexibility, at
   the cost of some minor nuisances here and there, specially
   with hardware support.
-  * **Windows** is an absolutely valid choice, but I feel at home
+  - **Windows** is an absolutely valid choice, but I feel at home
   in a *nix CLI and would spend most of the time mucking around
   in [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
   to make the tools I need.
 
-* **AArch64** or **x86_64**?
-  * **AArch64** (also known as [ARM64](https://en.wikipedia.org/wiki/AArch64))
+- **AArch64** or **x86_64**?
+  - **AArch64** (also known as [ARM64](https://en.wikipedia.org/wiki/AArch64))
   was released in 2011. In the ARM ecosystems
   [ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)
   blueprints are released and chip producers are able to customize their designs.
@@ -51,7 +51,7 @@ While shopping around I had two main questions on my mind:
   and servers. The Mac product line has sucessfully transitioned into this ISA.
   For Windows and general-purpose Linux distros the support is still spotty,
   traditionally this ISA has tight integration between hardware and software.
-  * **x86_64** (also known as x64, [x86_64](https://en.wikipedia.org/wiki/X86-64))
+  - **x86_64** (also known as x64, [x86_64](https://en.wikipedia.org/wiki/X86-64))
   is a 64-bit extension of the [x86](https://en.wikipedia.org/wiki/X86)
   [instruction set](https://en.wikipedia.org/wiki/Instruction_set_architecture).
   Announced in 1999 by AMD and became the de-facto standard 64
@@ -61,12 +61,14 @@ While shopping around I had two main questions on my mind:
 My preference was really **AArch64**, it's cost efficient and it's everywhere.
 Being able to develop on the same ISA that will then be deployed into the cloud
 would be great. But with mainstream Linux distros lacking good support the choice
-really narrowed down to the Apple ecosystem, which is expensive.
+really narrowed down to the Apple ecosystem, which is expensive...
 
-But then again, is really necessary to go for one of the really expensive options
-like a MacBook Pro, or a Mac Pro? The MacBook Air is pretty good machine nowadays,
+But then again, is really necessary to go for one of the expensive options
+like a MacBook Pro, or a Mac Pro? The MacBook Air is a pretty good machine nowadays,
 it packs lots of computing power into a small, comfortable and well-designed package.
-The expansion options are not as great, but it's a very capable machine.
+The expansion options are not as great, but with an amazing
+[performance per watt](https://en.wikipedia.org/wiki/Performance_per_watt)
+and a battery that lasts for a full work-day and more, it's a very capable machine.
 I found a good deal on the the 10 core M4 with 24 Gb of Ram and clicked the *Order*
 button. It's been working great so far.
 
@@ -203,7 +205,7 @@ Keep in mind you'll need to add the same key for two different purposes:
 Here's how it looks on GitHub, if you check I have added the same public key
 for both purposes.
 
-![GitHub keys](/assets/images/2026-01-08-GitHub-keys.jpg)
+![GitHub keys](/assets/images/2026-01-09-GitHub-keys.jpg)
 
 ### A Terminal alternative
 
@@ -281,3 +283,6 @@ like the [DevContainers](https://containers.dev/) extension.
 brew install --cask visual-studio-code
 code --install-extension ms-vscode-remote.remote-containers
 ```
+
+By this point was ready to start my
+[new blogging adventure](/jekyll/update/2026/01/07/bootstraping-a-blog.html)!
