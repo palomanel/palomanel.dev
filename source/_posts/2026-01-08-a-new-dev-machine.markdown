@@ -1,15 +1,86 @@
 ---
 layout: post
-title:  "Setting up a new Mac for development work"
+title:  "A new development machine"
 date:   2026-01-08
 categories: jekyll update
 ---
 
-This is a quick and personal guide to prepare a Mac for development work.
-It covers the bare mininum steps to turn a brand new Mac into
-a useful development machine. Only general use tools are covered,
-my advice on installing specific tools or languages is: use a devcontainer,
-your enviroment will be cleaner, easier to replicate, debug and maintain.
+Black Friday is a great opportunity to find new gear at reasonable
+prices, so having used the same personal laptop for eight years,
+I thought that it was time this year.
+
+To be honest my old machine aged quite well, and it was still my
+main workhorse for personal projects. With an Intel Core i5-826SU
+with 8 cores, integrated GPU, 8 Gb of memory, and Ubuntu on top, it
+just runs great. Objectively the only problem with it is a
+creaking hinge.
+
+So why upgrade? A faster processor wont't hurt, but GPU and memory is what you need
+for [AI inference](https://www.cloudflare.com/learning/ai/inference-vs-training/).
+I also wanted to maintain all the checkmarks in the wishlist I laid out
+for my old machine:
+
+* a high-resolution 13"-14" screen
+* small and light form factor
+* sturdy build
+* USB-C connectivity, including the ability for the laptop to be powered by an external monitor
+
+### Choosing a new laptop
+
+While shopping around I had two main questions on my mind:
+
+* **MacOS** or **Linux**?
+  * **MacOS** is a polished experience, bound by a tightly
+  integrated ecosystem that can be a blessing or a limitation
+  depending on what you're trying to do.
+  * **Linux** provides a lot of freedom and flexibility, at
+  the cost of some minor nuisances here and there, specially
+  with hardware support.
+  * **Windows** is an absolutely valid choice, but I feel at home
+  in a *nix CLI and would spend most of the time mucking around
+  in [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
+  to make the tools I need.
+
+* **AArch64** or **x86_64**?
+  * **AArch64** (also known as [ARM64](https://en.wikipedia.org/wiki/AArch64))
+  was released in 2011. In the ARM ecosystems
+  [ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)
+  blueprints are released and chip producers are able to customize their designs.
+  The architecture's simplicity, energecy efficiency and costumization options
+  means you can find it anywhere: smarthphones, tablets, personal computers,
+  and servers. The Mac product line has sucessfully transitioned into this ISA.
+  For Windows and general-purpose Linux distros the support is still spotty,
+  traditionally this ISA has tight integration between hardware and software.
+  * **x86_64** (also known as x64, [x86_64](https://en.wikipedia.org/wiki/X86-64))
+  is a 64-bit extension of the [x86](https://en.wikipedia.org/wiki/X86)
+  [instruction set](https://en.wikipedia.org/wiki/Instruction_set_architecture).
+  Announced in 1999 by AMD and became the de-facto standard 64
+  architecture, overcoming Intel's [IA-64](https://en.wikipedia.org/wiki/IA-64).
+  Windows and general-purpose Linux distros have great support.
+
+My preference was really **AArch64**, it's cost efficient and it's everywhere.
+Being able to develop on the same ISA that will then be deployed into the cloud
+would be great. But with mainstream Linux distros lacking good support the choice
+really narrowed down to the Apple ecosystem, which is expensive.
+
+But then again, is really necessary to go for one of the really expensive options
+like a MacBook Pro, or a Mac Pro? The MacBook Air is pretty good machine nowadays,
+it packs lots of computing power into a small, comfortable and well-designed package.
+The expansion options are not as great, but it's a very capable machine.
+I found a good deal on the the 10 core M4 with 24 Gb of Ram and clicked the *Order*
+button. It's been working great so far.
+
+### Basic set-up
+
+It's always a great idea to have your files on the cloud. Depending on the file type
+(documents, photos, code) and on the control you want to have (public cloud,
+homegrown server) you might use different products. I keep everything centralized
+in a couple of cloud services, plus I have a home backup.
+So accessing and syncing my stuff was a breeze.
+
+While there's a ton of customizaton and tweaks it's possible to put into the OS.
+The really important stuff is very easy to configure. I probably spent an hour or so
+with the following steps, after which I had a fully workable development machine.
 
 ### Apple developer tools
 
@@ -29,7 +100,7 @@ xcode-select --install
 
 ### Secure Shell Protocol
 
-The Secure Shell Protocol ([SSH Protocol](https://en.wikipedia.org/wiki/Secure_Shell)) 
+The Secure Shell Protocol ([SSH Protocol](https://en.wikipedia.org/wiki/Secure_Shell))
 continues to be the standard for operating network services over unsecured
 networks. It is also the most convenient protocol for securing git
 connections.
@@ -125,6 +196,7 @@ echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile
 
 Then add your public key in the code hosting services you'll be using.
 Keep in mind you'll need to add the same key for two different purposes:
+
 - **Authentication key**
 - **Signing key**
 
@@ -192,7 +264,7 @@ and lightweight solution. But that's a post for another day.
 
 Visual Studio Code (commonly referred to as VS Code) is an integrated
 development environment developed by Microsoft for Windows, Linux, macOS
-and web browsers. Features include support for debugging, syntax highlighting, 
+and web browsers. Features include support for debugging, syntax highlighting,
 intelligent code completion, snippets, code refactoring, and embedded version
 control with Git. Users can change the theme, keyboard shortcuts and
 preferences, as well as install extensions that add functionality, including
@@ -209,6 +281,3 @@ like the [DevContainers](https://containers.dev/) extension.
 brew install --cask visual-studio-code
 code --install-extension ms-vscode-remote.remote-containers
 ```
-
-By the way, the DevContainers extension will automatically pick up your
-`git` configuration, so you won't need to repeat the steps above.
