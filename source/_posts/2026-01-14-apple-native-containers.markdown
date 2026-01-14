@@ -187,6 +187,19 @@ As expected, when running more containers the Docker Virtual Machine service
 grows, when using Apple Native Containers more Virtual Machines will be
 spawned.
 
+Funny story: one morning I opened
+my laptop just to see I still had QuakeJS running on the background.
+It was gresat to see the Apple native container barely made a dent in battery
+charge while the OS was sleeping. So when you're done don't forget to clean up:
+
+```bash
+container ls
+container stop quakejs
+container rm quakejs
+container image ls
+container image rm quakejs-rootless:latest
+```
+
 ### Apple native devcontainers
 
 There's a open VS code issue to
