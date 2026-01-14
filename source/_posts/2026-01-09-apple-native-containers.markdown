@@ -5,8 +5,10 @@ date:   2026-01-09
 categories: macos containers
 ---
 
-[container](https://github.com/apple/container) is a tool optimized for
-Apple siliconthat you can use to create and run Linux containers
+In [WWDC 2025](https://developer.apple.com/videos/play/wwdc2025/346/)
+(June 2025) Apple announced [container](https://github.com/apple/container),
+it's a tool optimized for Apple silicon
+that you can use to create and run Linux containers
 as lightweight virtual machines on your Mac.
 The [Containerization](https://github.com/apple/containerization) Swift
 package is used for low level container, image, and process management.
@@ -15,14 +17,46 @@ The tool consumes and produces
 [OCI-compatible container images](https://github.com/opencontainers/image-spec),
 so you can pull and run images from any standard container registry. You can push
 images that you build to those registries as well, and run the images
-in any other OCI-compatible application.
-There's experimental support for
+in any other OCI-compatible application. At the time I'm writing this
+there's only experimental support for
 [using the tool with the VS Code Dev Containers extension](https://github.com/microsoft/vscode-remote-release/issues/11012).
-Can it be a drop-in replacement for Docker?
+
+Quoting from the [container Technical Overview](https://github.com/apple/container/blob/main/docs/technical-overview.md) to highlight the main architecture difference:
+
+> Many operating systems support containers, but the most commonly encountered
+> containers are those that run on the Linux > operating system. With macOS,
+> the typical way to run Linux containers is to launch a Linux virtual machine
+> (VM) that hosts all of your containers.
+>
+> container runs containers differently. Using the open source
+> Containerization package, it runs a lightweight VM for each container that
+> you create. This approach has the following properties:
+>
+> * Security: Each container has the isolation properties of a full VM,
+> using a minimal set of core utilities and dynamic libraries to reduce
+> resource utilization and attack surface.
+> * Privacy: When sharing host data using container, you mount only necessary
+> data into each VM. With a shared VM, you need to mount all data that you may
+> ever want to use into the VM, so that it can be mounted selectively into
+> containers.
+> * Performance: Containers created using container require less memory than
+> full VMs, with boot times that are comparable to containers running in a shared
+> VM.
+
+I was curious to see how Apple Native Containers fared against
+Docker so I ran a few tests. Here's the **TL;DR** on what I found:
+
+* Design choices translate into very real differences that might
+make the tool useful for you, or not... the more permissive license can also
+be a big plus.
+* Apple Native Containers work as expected and provide the necessary basic
+functionality to run and manage containers in a modern Mac,
+however it is not a drop-in replacement for Docker.
 
 ### Installing native containers
 
-It's possible to use `brew` for the installation, run the following command to install the Apple Container command-line tool.
+It's possible to use `brew` for the installation, run the following command
+to install the Apple Container command-line tool.
 
 ```bash
 brew install container
@@ -78,11 +112,19 @@ Let's compare the `container` subcommands with those exposed by
 | `volume`, `v`: Manage container volumes | `volume`: Manage volumes | &#10003; | |
 
 The standard options are there, but there's minor some differences in the interface.
-It might be necessary to re-learn some
-syntax, but it's nice to see that some
+It might be necessary to re-learn some syntax, but it's nice to see that some
 `container` subcommands have a shorter alias.
 
-### Running a non-trivial workload
+### Building and running a non-trivial workload
+
+Time to build an run a containerized workload.
+I got inspired by a [Christmas post I've seen on another blog](https://blog.nuneshiggs.com/quakejs-rootless-prontos-para-as-ferias-de-natal/), and
+decided to pick up something fun. Let's start with
+the [QuakeJS Rootless Project](https://github.com/JackBrenn/quakejs-rootless)
+from [JackBrenn](https://github.com/JackBrenn). The project
+enables palying multiplayer Quake III Arena in a browser with
+Podman / Docker. Let's see if it works with `container`. The commands
+are exactly the same for `docker`, so comparing was easy.
 
 ```bash
 git clone https://github.com/JackBrenn/quakejs-rootless.git
@@ -96,6 +138,43 @@ container run -d \
   quakejs-rootless:latest
 ```
 
-The only noticable difference was that `container` pulled
-[BuildKit](https://github.com/moby/buildkit) before
-starting to build the image
+Starting from scratch to compare the build times
+between `docker` and `container` both clocked very similar times,
+around 90 seconds. Which makes sense, given they're both
+using the same engine to build their images.
+([BuildKit](https://github.com/moby/buildkit)) is an improved backend
+that replaced the legacy Docker builder and it's the
+[default builder](https://docs.docker.com/build/buildkit/)
+for users on Docker Desktop, and Docker Engine as of
+version `23.0`.
+The only difference I was able to spot in the output
+is that `container` pulled the BuildKit image before
+starting to build the image.
+
+The `run` step will start a completely local QuakeJS server
+running in a container in the background.
+Besides running the server engine which hosts the gameworld
+for several players, it will serve
+a [WASM](https://webassembly.org/) version of Quake III
+compiled using [emscripten](https://emscripten.org/).
+No external dependencies, no content servers, no proxies -
+just pure Quake III Arena gaming in your browser.
+You can use this to host a LAN party anywhere! Point
+to `localhost:8080` and accept the EULA:
+
+![QuakeJS EULA](/assets/images/2026-01-09-QuakeJS-EULA.png)
+
+And after downloading the necessary data files you'll be
+ready for [fragging](https://hackersdictionary.com/html/entry/frag.html)
+your friends or co-workers.
+
+![QuakeJS in the browser](/assets/images/2026-01-09-QuakeJS-browser.png)
+
+Checking the stats in Activity Monitor the observations seems to be
+consistent with what we now about each tool's architecture. It seems
+Docker reserved a lot of memory for one big virtual machine.
+
+| Process | Real Memory Size | CPU usage |
+| --- | --: | --: |
+| Virtual Machine Service for container-runtime-linux | 1.00 Gb | ~28% |
+| Virtual Machine Service for Docker | 6.85 Gb | ~28% |
