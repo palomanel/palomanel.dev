@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Apple native containers"
-date:   2026-01-09
+date:   2026-01-14
 categories: macos containers
 ---
 
@@ -17,9 +17,7 @@ The tool consumes and produces
 [OCI-compatible container images](https://github.com/opencontainers/image-spec),
 so you can pull and run images from any standard container registry. You can push
 images that you build to those registries as well, and run the images
-in any other OCI-compatible application. At the time I'm writing this
-there's only experimental support for
-[using the tool with the VS Code Dev Containers extension](https://github.com/microsoft/vscode-remote-release/issues/11012).
+in any other OCI-compatible application.
 
 Quoting from the [container Technical Overview](https://github.com/apple/container/blob/main/docs/technical-overview.md) to highlight the main architecture difference:
 
@@ -48,10 +46,15 @@ Docker so I ran a few tests. Here's the **TL;DR** on what I found:
 
 * Design choices translate into very real differences that might
 make the tool useful for you, or not... the more permissive license can also
-be a big plus.
-* Apple Native Containers work as expected and provide the necessary basic
+be a decisive factor.
+* Apple Native Containers work as expected and provide the basic
 functionality to run and manage containers in a modern Mac,
-however it is not a drop-in replacement for Docker.
+however they're not a drop-in replacement for Docker.
+* Ecosystem support is still not up to par, for instance
+[Container-compose](https://github.com/Mcrich23/Container-Compose) is an
+Open Source project that brings (limited) Docker Compose support,
+and there's only experimental support for
+[using the tool with the VS Code Dev Containers extension](https://github.com/microsoft/vscode-remote-release/issues/11012).
 
 ### Installing native containers
 
@@ -77,7 +80,7 @@ container run hello-world
 
 So far, so good!
 
-![Hello world](/assets/images/2026-01-09-hello-world.jpg)
+![Hello world](/assets/images/2026-01-14-hello-world.jpg)
 
 ### Comparing the interface
 
@@ -103,7 +106,7 @@ Let's compare the `container` subcommands with those exposed by
 | `list`, `ls`: List running containers | `ps`: List containers | &#10007; | Different subcommand, but similar options |
 | `logs`: Fetch container logs | `logs`: Fetch the logs of a container | &#10003; | |
 | `network`, `n`: Manage container networks | `network`: Manage networks | &#10003; | |
-| `registry`, `r`: Manage registry logins | `login`: Authenticate to a registry, `logout`: Log out from a registry |  &#10007; | Registry manages logins, similar to login/logout |
+| `registry`, `r`: Manage registry logins | `login`: Authenticate to a registry, `logout`: Log out from a registry | &#10007; | Registry manages logins, similar to login/logout |
 | `run`: Run a container | `run`: Create and run a new container from an image | &#10003; | |
 | `start`: Start a container | `start`: Start one or more stopped containers | &#10003; | |
 | `stats`: Display resource usage statistics for containers | `stats`: Display a live stream of container(s) resource usage statistics | &#10003; | |
@@ -122,9 +125,10 @@ I got inspired by a [Christmas post I've seen on another blog](https://blog.nune
 decided to pick up something fun. Let's start with
 the [QuakeJS Rootless Project](https://github.com/JackBrenn/quakejs-rootless)
 from [JackBrenn](https://github.com/JackBrenn). The project
-enables palying multiplayer Quake III Arena in a browser with
-Podman / Docker. Let's see if it works with `container`. The commands
-are exactly the same for `docker`, so comparing was easy.
+enables playing multiplayer Quake III Arena in a browser with
+Podman / Docker. Let's see if it works with `container`. The command syntax
+to build and start the container was exactly the same as the Docker
+instructions.
 
 ```bash
 git clone https://github.com/JackBrenn/quakejs-rootless.git
@@ -162,13 +166,13 @@ just pure Quake III Arena gaming in your browser.
 You can use this to host a LAN party anywhere! Point
 to `localhost:8080` and accept the EULA:
 
-![QuakeJS EULA](/assets/images/2026-01-09-QuakeJS-EULA.png)
+![QuakeJS EULA](/assets/images/2026-01-14-QuakeJS-EULA.png)
 
 And after downloading the necessary data files you'll be
 ready for [fragging](https://hackersdictionary.com/html/entry/frag.html)
 your friends or co-workers.
 
-![QuakeJS in the browser](/assets/images/2026-01-09-QuakeJS-browser.png)
+![QuakeJS in the browser](/assets/images/2026-01-14-QuakeJS-browser.png)
 
 Checking the stats in Activity Monitor the observations seems to be
 consistent with what we now about each tool's architecture. It seems
@@ -178,3 +182,23 @@ Docker reserved a lot of memory for one big virtual machine.
 | --- | --: | --: |
 | Virtual Machine Service for container-runtime-linux | 1.00 Gb | ~28% |
 | Virtual Machine Service for Docker | 6.85 Gb | ~28% |
+
+As expected, when running more containers the Docker Virtual Machine service
+grows, when using Apple Native Containers more Virtual Machines will be
+spawned.
+
+### Apple native devcontainers
+
+There's a open VS code issue to
+[Support for the Containerization Framework on macOS](https://github.com/microsoft/vscode-remote-release/issues/11012),
+and it's easy to find the option to enable experimental support in the
+devcontainers extension. I briefly tested with this
+[blog's devcontainer.json](https://github.com/palomanel/palomanel.dev/blob/main/.devcontainer/devcontainer.json)
+, Jekyll was up and running and the interactive shell session worked as
+expected, but strangely the container output was not being captured.
+
+![Apple native containers experimental support](/assets/images/2026-01-14-DevContainers-experimental.png)
+
+So in conclusion, Apple Native containers felt useful and performant,
+and I will probably be using them for some tasks.
+However I am not uninstalling Docker for the time being.
