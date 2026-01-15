@@ -31,7 +31,7 @@ While shopping around I had two main questions on my mind:
 
 - **MacOS** or **Linux**?
   - **MacOS** is a polished experience, bound by a tightly
-  integrated ecosystem that can be a blessing or a limitation
+  integrated ecosystem that can be a befefit or a drawback
   depending on what you're trying to do.
   - **Linux** provides a lot of freedom and flexibility, at
   the cost of some minor nuisances here and there, specially
@@ -39,7 +39,6 @@ While shopping around I had two main questions on my mind:
   - **Windows** is an absolutely valid choice, but I feel at home
   in a *nix CLI and would spend most of the time mucking around
   in [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
-  to make the tools I need.
 
 - **AArch64** or **x86_64**?
   - **AArch64** (also known as [ARM64](https://en.wikipedia.org/wiki/AArch64))
@@ -265,7 +264,7 @@ and lightweight solution. But that's a post for another day.
 ### Visual Studio Code
 
 Visual Studio Code (commonly referred to as VS Code) is an integrated
-development environment developed by Microsoft for Windows, Linux, macOS
+development environment developed by Microsoft for Windows, Linux, MacOS
 and web browsers. Features include support for debugging, syntax highlighting,
 intelligent code completion, snippets, code refactoring, and embedded version
 control with Git. Users can change the theme, keyboard shortcuts and
