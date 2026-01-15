@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "Bootstraping a Jekyll Blog"
+title:  "Bootstrapping a Jekyll Blog"
 date:   2026-01-07
 categories: jekyll update
 ---
 
-I created my first blog back in the noughties, it was 2005 and blogging felt
+I created my first blog back in 2005, when blogging felt
 new and wonderful.
 Every couple of weeks I would write about pretty much anything I had on my
 mind in my online journal.
-My audience was mostly family and friends, but writing has always been great way
-to organize one's thougths.
+My audience was mostly family and friends, but writing has always been a great
+way to organize one's thoughts.
 I had a good run, lasting until 2012, before abandoning blogging.
 The website is still up on a Portuguese speaking corner of `blogspot.com`,
 available for nostalgia trips.
@@ -23,12 +23,12 @@ tools of the trade.
 
 This is my first post on a new project, a development blog, where I can
 discuss technology and share cool new things I learn.
-It seems fitting that the first post in this blog is about bootstraping,
+It seems fitting that the first post in this blog is about bootstrapping,
 so here we go...
 
 ### Choosing a blog platform
 
-The fist step was choosing where to host, as there's a myriad
+The first step was choosing where to host, as there's a myriad
 of platforms to host your content. I considered a few key dimensions when
 making the choice:
 
@@ -38,19 +38,19 @@ always up and safe from tampering, but guarantees are needed
 3. **Ease of use and customization options** depend a lot on the content type,
 but writing should be a frictionless experience nonetheless
 4. **Cost and monetization options** are important, even more so if you
-intend to make a profit somehow
+intend to generate revenue
 
 My requirements are easy to define:
 
 1. I will be writing for a technical audience, so I'm looking for a friendly
-neighbourhood for that type of content
+neighborhood for that type of content
 2. Beyond having guarantees that everything runs smoothly and securely,
 I also want the ability to understand and audit all the technical layers
 3. I'll be sharing text and maybe some images, I don't care about
 [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG) tools and complex workflows,
 my aim is simplicity and understanding what's happening behind the scenes
-4. I don't want to break the bank, at the same time I don't really care about
-monetization
+4. Hosting needs to be affordable, specially considering I don't have plans for
+monetization for the time being
 
 The obvious choice is hosting on [GitHub Pages](https://docs.github.com/en/pages),
 a feature that enables creating a website directly from a repository on GitHub.
@@ -83,16 +83,18 @@ web technology.
 The actual first step was securing a hostname for the website, the repo would
 be named after it. After shopping around in different
 [registrars](https://www.icann.org/en/contracted-parties/accredited-registrars/list-of-accredited-registrars)
-I chose [porkbun](https://porkbun.com/), probably not the most well-known
-but I liked what I saw: transparent pricing, essential features like WHOIS privacy
-and SSL are free, and the UI is clean and simple.
-Seemed perfect for a small personal project.
+I chose [porkbun](https://porkbun.com/), probably not the most well-known,
+but it seemed perfect for a small personal project.
+It has the features I needed: transparent pricing, essential features like
+WHOIS privacy and SSL are free, and the UI is clean and simple. They also
+offer `.dev` domains, exactly what I was looking for.
 
-Up next, rendering [Lorem Ipsum](https://www.lipsum.com/)
+Once I purchased my hostname the next step was rendering
+[Lorem Ipsum](https://www.lipsum.com/)
 on the new website. After [creating a new repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)
 I put together a site skeleton using the
 [Quick Jekyll theme](https://github.com/devich/quick).
-I separated the Jekyll source files into a `source` folder, 
+I separated the Jekyll source files into a `source` folder,
 I prefer to have a clean and tidy top level folder, it avoids confusion and allows
 triggering workflows only when needed.
 Let's have a look at the [initial commit](https://github.com/palomanel/palomanel.dev/commit/519bbf0673b2a016c7bf60fef1beab5452bf4527):
@@ -117,7 +119,7 @@ Always [make a readme](https://www.makeareadme.com/)!
 [configuring a custom domain for your GitHub Pages site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site) and holds your custom domain name,
 More on that in a couple of lines.
 In case you're wondering why this is part of the initial commit... I cheated!
-I squashed the GitHub-generated commit with the initial commit to be
+I squashed the GitHub-generated commit with my first commit to be
 able to reference a single commit.
 - `source/_config.yml` holds the configuration for Jekyll and whatever template is being used,
 beyond the boilerplate the key statement is `remote_theme: devich/quick@0.0.1` which instructs
