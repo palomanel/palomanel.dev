@@ -19,7 +19,9 @@ so you can pull and run images from any standard container registry. You can pus
 images that you build to those registries as well, and run the images
 in any other OCI-compatible application.
 
-Quoting from the [container Technical Overview](https://github.com/apple/container/blob/main/docs/technical-overview.md) to highlight the main architecture difference:
+Quoting from the
+[container Technical Overview](https://github.com/apple/container/blob/main/docs/technical-overview.md)
+to highlight the main architecture differences:
 
 > Many operating systems support containers, but the most commonly encountered
 > containers are those that run on the Linux > operating system. With macOS,
@@ -30,33 +32,33 @@ Quoting from the [container Technical Overview](https://github.com/apple/contain
 > Containerization package, it runs a lightweight VM for each container that
 > you create. This approach has the following properties:
 >
-> * Security: Each container has the isolation properties of a full VM,
+> - Security: Each container has the isolation properties of a full VM,
 > using a minimal set of core utilities and dynamic libraries to reduce
 > resource utilization and attack surface.
-> * Privacy: When sharing host data using container, you mount only necessary
+> - Privacy: When sharing host data using container, you mount only necessary
 > data into each VM. With a shared VM, you need to mount all data that you may
 > ever want to use into the VM, so that it can be mounted selectively into
 > containers.
-> * Performance: Containers created using container require less memory than
+> - Performance: Containers created using container require less memory than
 > full VMs, with boot times that are comparable to containers running in a shared
 > VM.
 
 I was curious to see how Apple Native Containers fared against
 Docker so I ran a few tests. Here's the **TL;DR** on what I found:
 
-* Design choices translate into very real differences that might
-make the tool useful for you, or not... the more permissive license can also
-be a decisive factor.
-* Apple Native Containers work as expected and provide the basic
-functionality to run and manage containers in a modern Mac,
-however they're not a drop-in replacement for Docker.
-* Ecosystem support is still not up to par, for instance
-[Container-compose](https://github.com/Mcrich23/Container-Compose) is an
-Open Source project that brings (limited) Docker Compose support,
-and there's only experimental support for
-[using the tool with the VS Code Dev Containers extension](https://github.com/microsoft/vscode-remote-release/issues/11012).
+- Design choices translate into very real differences that might
+  make the tool useful for you, or not... the more permissive license can also
+  be a decisive factor.
+- Apple Native Containers work as expected and provide the basic
+  functionality to run and manage containers in a modern Mac,
+  however they're not a drop-in replacement for Docker.
+- Ecosystem support is still not up to par, for instance
+  [Container-compose](https://github.com/Mcrich23/Container-Compose) is an
+  Open Source project that brings (limited) Docker Compose support,
+  and there's only experimental support for
+  [using the tool with the VS Code Dev Containers extension](https://github.com/microsoft/vscode-remote-release/issues/11012).
 
-### Installing native containers
+## Installing native containers
 
 It's possible to use `brew` for the installation, run the following command
 to install the Apple Container command-line tool.
@@ -65,7 +67,8 @@ to install the Apple Container command-line tool.
 brew install container
 ```
 
-The CLI manages its own service; run this command to initialize and start the background system
+The CLI manages its own service; run this command to initialize and start the
+background system:
 
 ```bash
 container system start
@@ -82,7 +85,7 @@ So far, so good!
 
 ![Hello world](/assets/images/2026-01-14-hello-world.jpg)
 
-### Comparing the interface
+## Comparing the interface
 
 Docker Desktop provides a lot of funcionality and unsurprisingly
 `container` covers only a fraction of it. Comparing the output of
@@ -90,8 +93,7 @@ Docker Desktop provides a lot of funcionality and unsurprisingly
 The key question however is whether the essential functions are there
 and working as expected.
 
-Let's compare the `container` subcommands with those exposed by
- `docker`.
+Let's compare the `container` subcommands with those exposed by `docker`:
 
 | Apple Containers | Docker Desktop | Compatible | Remarks |
 | --- | --- | :-: | --- |
@@ -118,11 +120,11 @@ The standard options are there, but there's some minor differences in the
 interface. It might be necessary to re-learn some syntax, but it's nice
 to see that some `container` subcommands have a shorter alias.
 
-### Building and running a non-trivial workload
+## Building and running a non-trivial workload
 
 Time to build an run a containerized workload.
-I got inspired by a [Christmas post I've seen on another blog](https://blog.nuneshiggs.com/quakejs-rootless-prontos-para-as-ferias-de-natal/), and
-decided to pick up something fun. Let's start with
+I got inspired by a [Christmas post I've seen on another blog](https://blog.nuneshiggs.com/quakejs-rootless-prontos-para-as-ferias-de-natal/)
+, and decided to pick up something fun. Let's start with
 the [QuakeJS Rootless Project](https://github.com/JackBrenn/quakejs-rootless)
 from [JackBrenn](https://github.com/JackBrenn). The project
 enables playing multiplayer Quake III Arena in a browser with
@@ -204,7 +206,7 @@ container image ls
 container image rm quakejs-rootless:latest
 ```
 
-### Running containerized ollama
+## Running containerized ollama
 
 Docker Desktop doesn't support GPUs natively on Mac. Apple Native containers
 on the other hand should provide direct access to the hardware on Apple
@@ -236,7 +238,7 @@ Why don't scientists trust atoms? Because they make up everything! 😂
 ```
 
 The `ollama serve` logs and Activity Monitor confirmed the GPU and the
-[metal API](https://developer.apple.com/metal/) was being used.
+[metal API](https://developer.apple.com/metal/) were being used.
 
 To compare the `docker` and `container` performance I used the
 [official ollama container image](https://hub.docker.com/r/ollama/ollama).
@@ -283,7 +285,7 @@ similar results to Apple Native Container.
 
 Clearly the best option in Mac is still using ollama natively!
 
-### Apple native devcontainers
+## Apple native devcontainers
 
 There's a open VS code issue to
 [Support for the Containerization Framework on macOS](https://github.com/microsoft/vscode-remote-release/issues/11012),
