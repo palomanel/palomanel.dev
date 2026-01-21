@@ -127,8 +127,9 @@ After ensuring my hooks were running as expected inside my devcontainer
 I proceeded to install a few extra plugins that made sense for this project.
 Let's go over them:
 
-[GitLeaks](https://github.com/gitleaks/gitleaks) is a fast,
-lightweight scanner that prevents secrets (passwords,
+**Secret Scanning** is done using
+[GitLeaks](https://github.com/gitleaks/gitleaks),
+a fast and lightweight scanner that prevents secrets (passwords,
 API keys, tokens) from being committed to your repository.
 
 ```yml
