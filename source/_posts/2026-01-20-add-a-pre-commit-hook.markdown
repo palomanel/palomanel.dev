@@ -32,7 +32,7 @@ disaster like
 This post will focus on how to install and configure
 [pre-commit](https://pre-commit.com/), a python framework for managing and
 maintaining multi-language pre-commit hooks.
-There list of [supported hooks](https://pre-commit.com/hooks.html) is big, with
+The list of [supported hooks](https://pre-commit.com/hooks.html) is big, with
 a lot of commonly used tools supporting the framework.
 
 Keep in mind there are other pre-commit implementations around, for instance:
@@ -81,16 +81,15 @@ to your `devcontainer.json`:
 
 ## Configuring pre-commit
 
-Once you have pre-commit installed, adding pre-commit plugins to your project
-is done with the `.pre-commit-config.yaml` configuration file.
-The pre-commit config file describes what repositories and hooks are installed,
-and the stage they will run in (`pre-commit`, `pre-push`, etc).
+Once you have `pre-commit` installed, the `.pre-commit-config.yaml` configuration
+file lists the git hooks hooks that should run for your project. Let's generate
+a sample configuration file.
 
 ```bash
 pre-commit sample-config > .pre-commit-config.yaml
-````
+```
 
-The generated file will be something like this
+The generated file will be something like this:
 
 ```yml
 # See https://pre-commit.com for more information
@@ -104,6 +103,17 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
 ```
+
+There's several keys and entities that are important to understand:
+
+- `default_install_hook_types`, the git stages where hooks will run (`pre-commit`
+  , `pre-push`, etc), different hooks might run in different stages;
+- `repo`, a repository containing one or more supported hooks
+- `rev`, the revision or version of the `repo` we will be using
+- `hooks`, the list of hooks to be run from the `repo`
+- `id`, a hook name present in the `repo`
+- `stages`, the list of stages where the hook defined by `id` will run
+- `args`, any args for `id`
 
 Once you have a configuration register with with `git` using:
 
@@ -187,7 +197,7 @@ Git hooks are a great tool, but they're completely optional, by design it's not
 possible to enforce their use. If for some reason it's necessary to skip
 pre-commit validations it's as simple as using `git commit --no-verify`.
 
-So how to really enforce the rules outlined in the pre-commit configuration are
+How to really enforce the rules outlined in the pre-commit configuration are
 checked? The right place to do that is the CI/CD workflow for code repository.
 There's a [GitHub action for pre-commit](https://github.com/pre-commit/action),
 and altough it's in maintenance-only mode, it still works like a charm.
