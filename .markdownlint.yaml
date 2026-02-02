@@ -1,3 +1,4 @@
+---
 MD002:
   # The post title will generate H1 so make the expected top level H2
   level: 2

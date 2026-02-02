@@ -16,7 +16,7 @@
 	// "forwardPorts": [],
 
 	// Run commands after the container is created.
-	"postCreateCommand": "pre-commit install",
+	"postCreateCommand": "pre-commit install --install-hooks",
 
 	// Use 'postStartCommand' to run commands after the container starts.
 	"postStartCommand": "cd ${containerWorkspaceFolder}/source && jekyll clean && jekyll serve --livereload",

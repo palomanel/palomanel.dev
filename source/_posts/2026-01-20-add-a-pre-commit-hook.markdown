@@ -1,30 +1,50 @@
 ---
 layout: post
 title:  "Adding pre-commit hooks"
-date:   2026-01-20
+date:   2026-02-02
 categories: devops update tooling
 ---
 
 Git hook scripts are useful for identifying simple issues before submission
-to code review. Run hooks on every commit to automatically point out
-issues in code such as missing semicolons, trailing whitespace, and debug
-statements. Ensuring these issues are detected in a developer's local clone
-makes pull requests easier to review, and allows everyone working on the
+to code review. Issues in code such as missing semicolons, trailing whitespace,
+and debug statements can be detected in a developer's local clone before even
+submmiting code for review.
+This makes pull requests easier to review, and allows everyone working on the
 project to be more productive by focusing on needed changes instead of dealing
 with inconsistencies in the code base.
 
-This post will delve on how to install and configure
-[pre-commit](https://pre-commit.com/), a framework for managing and maintaining
-multi-language pre-commit hooks.
-There are a lot of [supported hooks](https://pre-commit.com/hooks.html)
-available, and what to include depends on the project type,
-programming languages being used, and team maturity. As an example I will use
-this blog's tooling, and add hooks that improve my writing workflow by
-detecting potential issues as early as possible.
+In modern systems hooks run very fast, so the amount of hooks in your
+configuration shouldn't be a limiting factor. There's a few areas that can be
+covered by pre-commit hooks, I'll go over some of them to provide a general idea:
+
+- **Automatic formatting**: applying a code formmatter will ensure consistent
+  code style, and make it easier for several people to collaborate and avoid
+  "style debates"
+- **Development workflow**: enforcing some repo and commit guidelines will
+  guarantee your code lineage is clear and understandable
+- **Static checks**: linters and other static checks can catch syntax errors,
+  missing docstrings, unused imports or identify potential bugs before the test
+  stage
+- **Security**: something as simple as a secret scanner can avoid a potential
+disaster like
+[uploading your private keys to GitHub by mistake](https://www.itpro.com/security/github-is-awash-with-leaked-ai-company-secrets-api-keys-tokens-and-credentials-were-all-found-out-in-the-open)
+
+This post will focus on how to install and configure
+[pre-commit](https://pre-commit.com/), a python framework for managing and
+maintaining multi-language pre-commit hooks.
+There list of [supported hooks](https://pre-commit.com/hooks.html) is big, with
+a lot of commonly used tools supporting the framework.
+
+Keep in mind there are other pre-commit implementations around, for instance:
+
+- [husky](https://typicode.github.io/husky/) is built in JavaScript
+  and integrates very weel with JS tooling.
+- [prek](https://github.com/j178/prek) aims to be a drop-in replacement for
+  `pre-commit` written in Rust.
 
 ## Installing pre-commit
 
-Before you can run hooks, you need to have the `pre-commit` package installed.
+Before running hooks, it's necessary to install the `pre-commit` package.
 There's several options for installation, depending on your project type and
 preference:
 
@@ -105,9 +125,12 @@ You can update your hooks to the latest version automatically by running
 tag on the default branch. It's a good idea to run this regularly to get
 fixes and improvements to your hooks.
 
-## Fine-tuning for this blog
+## Pre-commit and devcontainer work great together
 
-I used `pre-commit sample-config` to seed the configuration as shown above.
+I've added `pre-commit` to this blog's tooling to have a real-world example.
+So the focus is adding hooks that improve my writing workflow by
+detecting potential issues as early as possible.
+To seed the configuration I used `pre-commit sample-config` as shown above.
 Then I added the feature to my `devcontainer.json` file, I also made sure that
 `pre-commit` was registered in the `postCreateCommand`. Here are the relevant
 changes to `devcontainer.json`:
@@ -120,36 +143,57 @@ changes to `devcontainer.json`:
       },
 
   // Run commands after the container is created.
-  "postCreateCommand": "pre-commit install",
+  "postCreateCommand": "pre-commit install --install-hooks",
 ```
+
+Now whenever I start my devcontainer the pre-commit hooks are already
+installed and will run automatically when I `git commit`.
+
+## Configuring hooks
 
 After ensuring my hooks were running as expected inside my devcontainer
-I proceeded to install a few extra plugins that made sense for this project.
-Let's go over them:
+I proceeded to install a couple extra plugins that made sense for this project.
+Check [.pre-commit-config.yaml](.pre-commit-config.yaml) for the configuration,
+the hooks are:
 
-**Secret Scanning** is done using
-[GitLeaks](https://github.com/gitleaks/gitleaks),
-a fast and lightweight scanner that prevents secrets (passwords,
-API keys, tokens) from being committed to your repository.
+- [commitizen](https://commitizen-tools.github.io/commitizen/)
+  is a powerful release management tool that helps maintain consistent and
+  meaningful commit messages while automating version management, beyond the
+  `cz` CLI tool it's also possible to use it on a `pre-commit`
+  hook.
+- [GitLeaks](https://github.com/gitleaks/gitleaks)
+  a fast and lightweight scanner that prevents secrets (passwords,
+  API keys, tokens) from being committed to the repos.
+- [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2)
+  for Markdown linting. This linter supports Github-Flavored Markdown
+  and Frontmatter, so it's perfect for this project. Note there's several
+  `markdownlint` versions, as I'm using the
+  [Markdownlint VS Code extension](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+  I chose the most compatible implementation to ensure
+  consistency in the output.
+- [yamllint](https://github.com/adrienverge/yamllint) a linter for YAML files,
+  that does not only check for syntax validity, but for weirdnesses like key
+  repetition and cosmetic problems such as lines length, trailing spaces,
+  indentation, etc.
 
-```yml
-- repo: https://github.com/gitleaks/gitleaks
-  rev: v8.30.0
-  hooks:
-    - id: gitleaks
-```
+Check [pick-a-number](https://github.com/palomanel/pick-a-number), also a
+project of mine, to get inspirations for other hooks. The configuration
+has a lot more hooks as the project uses python, JavaScript, and AWS
+CloudFormation.
 
-[markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2)
-for Markdown linting. This linter supports Github-Flavored Markdown
-and Frontmatter, so it's perfect for this project. Note there's several
-`markdownlint` implementations, in the past I added the
-[Markdownlint VS Code extension](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-to `devcontainer.json` I chose the most compatible implementation to ensure
-consistency in the output.
+## Double-checking on GitHub
 
-```yml
-- repo: https://github.com/DavidAnson/markdownlint-cli2
-  rev: v0.20.0
-  hooks:
-  - id: markdownlint-cli2
-```
+Git hooks are a great tool, but they're completely optional, by design it's not
+possible to enforce their use. If for some reason it's necessary to skip
+pre-commit validations it's as simple as using `git commit --no-verify`.
+
+So how to really enforce the rules outlined in the pre-commit configuration are
+checked? The right place to do that is the CI/CD workflow for code repository.
+There's a [GitHub action for pre-commit](https://github.com/pre-commit/action),
+and altough it's in maintenance-only mode, it still works like a charm.
+
+In [pre-commit.yaml](source/_posts/2026-01-20-add-a-pre-commit-hook.markdown)
+I added a workflow that runs the exact some hooks that run locally for any
+pull request submmited to the `main` branch in GitHub. It also uses the
+[GitHub cache action](https://github.com/actions/cache) to ensure the lengthy
+step of hook installation is only done when needed.
