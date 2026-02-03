@@ -207,3 +207,9 @@ I added a workflow that runs the exact some hooks that run locally for any
 pull request submmited to the `main` branch in GitHub. It also uses the
 [GitHub cache action](https://github.com/actions/cache) to ensure the lengthy
 step of hook installation is only done when needed.
+
+![Double checking pre-commit passes on GitHub](/assets/images/2026-02-03-pre-commit-ci.png)
+
+With this setup it's possible to define and enfore CI checks centrally,
+at the same time developers will become aware of any issues as
+soon as possible.
