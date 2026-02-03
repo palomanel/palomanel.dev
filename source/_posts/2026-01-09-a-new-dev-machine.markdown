@@ -15,7 +15,7 @@ with 8 cores, integrated GPU, 8 Gb of memory, and Ubuntu on top, it
 runs just great. Objectively the only problem with it is a
 creaking hinge.
 
-So why upgrade? A faster processor wont't hurt, but GPU and memory are needed
+So why upgrade? A faster processor won't hurt, but GPU and memory are needed
 for [AI inference](https://www.cloudflare.com/learning/ai/inference-vs-training/).
 I also wanted to maintain or improve upon all the checkmarks in the wishlist
 I laid out for my old machine:
@@ -23,39 +23,40 @@ I laid out for my old machine:
 - [x] a high-resolution 13"-14" screen
 - [x] small and light form factor
 - [x] sturdy build
-- [x] USB-C connectivity, including the ability for the laptop to be powered by an external monitor
+- [x] USB-C connectivity, including the ability for the laptop to be powered by
+  an external monitor
 
-### Choosing a new laptop
+## Choosing a new laptop
 
 While shopping around I had two main questions on my mind:
 
 - **MacOS** or **Linux**?
   - **MacOS** is a polished experience, bound by a tightly
-  integrated ecosystem that can be a befefit or a drawback
-  depending on what you're trying to do.
+   integrated ecosystem that can be a befefit or a drawback
+   depending on what you're trying to do.
   - **Linux** provides a lot of freedom and flexibility, at
-  the cost of some minor nuisances here and there, specially
-  with hardware support.
+   the cost of some minor nuisances here and there, specially
+   with hardware support.
   - **Windows** is an absolutely valid choice, but I feel at home
-  in a *nix CLI and would spend most of the time mucking around
-  in [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
+   in a *nix CLI and would spend most of the time mucking around
+   in [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
 
 - **AArch64** or **x86_64**?
   - **AArch64** (also known as [ARM64](https://en.wikipedia.org/wiki/AArch64))
-  was released in 2011. In the ARM ecosystems
-  [ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)
-  blueprints are released and chip producers are able to customize their designs.
-  The architecture's simplicity, energecy efficiency and costumization options
-  means you can find it anywhere: smarthphones, tablets, personal computers,
-  and servers. The Mac product line has sucessfully transitioned into this ISA.
-  For Windows and general-purpose Linux distros the support is still spotty,
-  traditionally this ISA has tight integration between hardware and software.
+   was released in 2011. In the ARM ecosystems
+   [ISA](https://en.wikipedia.org/wiki/Instruction_set_architecture)
+   blueprints are released and chip producers are able to customize their designs.
+   The architecture's simplicity, energecy efficiency and customization options
+   means you can find it anywhere: smarthphones, tablets, personal computers,
+   and servers. The Mac product line has successfully transitioned into this ISA.
+   For Windows and general-purpose Linux distros the support is still spotty,
+   traditionally this ISA has tight integration between hardware and software.
   - **x86_64** (also known as x64, [x86_64](https://en.wikipedia.org/wiki/X86-64))
-  is a 64-bit extension of the [x86](https://en.wikipedia.org/wiki/X86)
-  [instruction set](https://en.wikipedia.org/wiki/Instruction_set_architecture).
-  Announced in 1999 by AMD and became the de-facto standard 64
-  architecture, overcoming Intel's [IA-64](https://en.wikipedia.org/wiki/IA-64).
-  Windows and general-purpose Linux distros have great support.
+   is a 64-bit extension of the [x86](https://en.wikipedia.org/wiki/X86)
+   [instruction set](https://en.wikipedia.org/wiki/Instruction_set_architecture).
+   Announced in 1999 by AMD and became the de-facto standard 64
+   architecture, overcoming Intel's [IA-64](https://en.wikipedia.org/wiki/IA-64).
+   Windows and general-purpose Linux distros have great support.
 
 My preference was really **AArch64**, it's cost efficient and it's everywhere.
 Being able to develop on the same ISA that will then be deployed into the cloud
@@ -71,19 +72,20 @@ and a battery that lasts for a full work-day and more, it's a very capable machi
 I found a good deal on the the 10 core M4 with 24 Gb of Ram and clicked the *Order*
 button. It's been working great so far.
 
-### Basic set-up
+## Basic set-up
 
-It's always a great idea to have your files on the cloud. Depending on the file type
-(documents, photos, code) and on the control you want to have (public cloud,
+It's always a great idea to have your files on the cloud. Depending on the file
+type (documents, photos, code) and on the control you want to have (public cloud,
 homegrown server) you might use different products. I keep everything centralized
 in a couple of cloud services, plus I have a home backup.
 So accessing and syncing my stuff was a breeze.
 
-While there's a ton of customizaton and tweaks it's possible to put into the OS.
-The really important stuff is very easy to configure. I probably spent an hour or so
-with the following steps, after which I had a fully workable development machine.
+While there's a ton of customization and tweaks it's possible to put into the OS.
+The really important stuff is very easy to configure. I probably spent an hour
+or so with the following steps, after which I had a fully workable development
+machine.
 
-### Apple developer tools
+## Apple developer tools
 
 The [Apple Developer Tools](https://en.wikipedia.org/wiki/Apple_Developer_Tools)
 are a suite of software tools from Apple to aid in making software dynamic
@@ -99,15 +101,17 @@ This pulls the Apple developer tools:
 xcode-select --install
 ```
 
-### Secure Shell Protocol
+## Secure Shell Protocol
 
-The Secure Shell Protocol ([SSH Protocol](https://en.wikipedia.org/wiki/Secure_Shell))
+The Secure Shell Protocol
+([SSH Protocol](https://en.wikipedia.org/wiki/Secure_Shell))
 continues to be the standard for operating network services over unsecured
 networks. It is also the most convenient protocol for securing git
 connections.
 
 Create a key pair using the `ed25519` elliptic curve algorithm.
-Known for fast signing and verification, should be ready for [Post-quantum cryptography](https://en.wikipedia.org/wiki/Post-quantum_cryptography).
+Known for fast signing and verification, should be ready for
+[Post-quantum cryptography](https://en.wikipedia.org/wiki/Post-quantum_cryptography).
 
 When prompted, enter a strong passphrase, then add the passphrase to the Apple keychain:
 
@@ -121,7 +125,8 @@ to always use the Keychain in `~/.ssh/config`:
 
 - The `AddKeysToAgent yes` entry loads the SSH-agent
 - You can add an `IdentifyFile` for each of your private keys
-- The `UseKeychain yes` entry tells SSH to look in your OSX keychain for the key passphrase
+- The `UseKeychain yes` entry tells SSH to look in your OSX keychain for the key
+  passphrase
 
 Example:
 
@@ -140,7 +145,7 @@ Configure your shell to load the Keychain whenever an interactive session is sta
 echo "ssh-add --apple-load-keychain -q" >> ~/.zshrc
 ```
 
-### Git source control
+## Git source control
 
 [Git](https://en.wikipedia.org/wiki/Git) is a distributed version control
 system, that is capable of managing versions of source code or data.
@@ -174,15 +179,16 @@ echo "example@mail.com $(cat ~/.ssh/id_ed25519.pub)" > ~/.config/git/allowed-sig
 git config --global gpg.ssh.allowedSignersFile "~/.config/git/allowed-signers"
 ```
 
-### Homebrew
+## Homebrew
 
-[Homebrew](https://brew.sh/) is an open-source package manager for macOS (and nowadays Linux).
+[Homebrew](https://brew.sh/) is an open-source package manager for macOS (and
+nowadays Linux).
 It simplifies the installation of software packages by providing a simple CLI interface,
 no more drag and drop to install tools. Removing packages is just as easy.
 
 Homebrew installs packages to their own directory and then symlinks their files
-into /opt/homebrew (on Apple Silicon). It won’t install files outside its prefix and
-you can place a Homebrew installation wherever you like. That means you can
+into /opt/homebrew (on Apple Silicon). It won’t install files outside its prefix
+and you can place a Homebrew installation wherever you like. That means you can
 organize your system in any way you want.
 
 The script installer explains what it will do and then pauses before it does it.
@@ -206,30 +212,33 @@ for both purposes.
 
 ![GitHub keys](/assets/images/2026-01-09-GitHub-keys.jpg)
 
-### A Terminal alternative
+## A Terminal alternative
 
-The native MacOS `Terminal` app is a bit lacking, so I typically install something else.
-[iTerm](https://iterm2.com) is a good option, but recently I started using
-[Alacritty](https://alacritty.org/), which is Open Source and written in Rust and allows
-for extensive [configuration](https://github.com/alacritty/alacritty#configuration).
-By integrating with other applications, rather than reimplementing their functionality,
-it manages to provide a flexible set of [features](https://github.com/alacritty/alacritty/blob/master/docs/features.md)
+The native MacOS `Terminal` app is a bit lacking, so I typically install something
+else. [iTerm](https://iterm2.com) is a good option, but recently I started using
+[Alacritty](https://alacritty.org/), which is Open Source and written in Rust
+and allows for extensive
+[configuration](https://github.com/alacritty/alacritty#configuration).
+By integrating with other applications, rather than reimplementing their
+functionality, it manages to provide a flexible set of
+[features](https://github.com/alacritty/alacritty/blob/master/docs/features.md)
 with high performance.
 
 The supported platforms currently consist of BSD, Linux, macOS
 and Windows.
 The software is considered to be at a beta level of readiness; there are a few missing
 features and bugs to be fixed, but it is already used by many as a daily driver.
-Precompiled binaries are available from the GitHub [releases page](https://github.com/alacritty/alacritty/releases).
+Precompiled binaries are available from the GitHub
+[releases page](https://github.com/alacritty/alacritty/releases).
 
-Mac OSX will refuse to run the app as the binary is not currently signed, to be able
-to use Alacritty it will be necessary to tweak its file attributes.
+Mac OSX will refuse to run the app as the binary is not currently signed, to be
+able to use Alacritty it will be necessary to tweak its file attributes.
 
 ```bash
 xattr -dr com.apple.quarantine "/Applications/Alacritty.app"
 ```
 
-### Docker Desktop
+## Docker Desktop
 
 Docker is an open platform for developing, shipping, and running applications.
 It enables you to separate your applications from your infrastructure
@@ -261,7 +270,7 @@ drawbacks. In the past year Apple has released
 [Apple native containers](https://github.com/apple/container) a native
 and lightweight solution. But that's a post for another day.
 
-### Visual Studio Code
+## Visual Studio Code
 
 Visual Studio Code (commonly referred to as VS Code) is an integrated
 development environment developed by Microsoft for Windows, Linux, MacOS

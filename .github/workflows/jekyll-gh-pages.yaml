@@ -1,6 +1,7 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+---
 name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
+# yamllint disable-line rule:truthy
 on:
   # Runs on pushes targeting `main` branch and the specified paths
   push:
@@ -19,8 +20,9 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment, skipping runs queued between the run
+# in-progress and latest queued. However, do NOT cancel in-progress runs as
+# we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false

@@ -1,0 +1,8 @@
+---
+MD002:
+  # The post title will generate H1 so make the expected top level H2
+  level: 2
+MD013:
+  # Disable line length rule for code blocks and tables
+  code_blocks: false
+  tables: false
