@@ -21,3 +21,7 @@ updates:
     directory: "/.github/workflows"
     patterns: ["*"]
     multi-ecosystem-group: "tooling"
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    patterns: ["*"]
+    multi-ecosystem-group: "tooling"
