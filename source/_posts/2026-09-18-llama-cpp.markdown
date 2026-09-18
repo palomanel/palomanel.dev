@@ -17,12 +17,15 @@ question I discovered the answer is nuanced:
 
 ## Getting Started
 
-Fornunately there's an excellent overview,
-[How to run llama.cpp on Mac in 2025: Local AI on Apple Silicon](https://t81dev.medium.com/how-to-run-llama-cpp-on-mac-in-2025-local-ai-on-apple-silicon-2e4f8aba70e4)
-. Everything is explained step-by-step.
+### Serving a model
 
-This will start a download from [HuggingFace](https://huggingface.co/), and
-drop you into a conversation with the model:
+For a step-by-step overview, check
+[How to run llama.cpp on Mac in 2025: Local AI on Apple Silicon](https://t81dev.medium.com/how-to-run-llama-cpp-on-mac-in-2025-local-ai-on-apple-silicon-2e4f8aba70e4)
+.
+
+The following code will install `llama.cpp`, download a model from
+[HuggingFace](https://huggingface.co/),
+and then drop you into a conversation with the model:
 
 ```bash
 brew install llama.cpp
@@ -54,7 +57,7 @@ Okay, you’ve just run the `llama-cli` command! Let’s break down what that do
 *   Or something else?
 ```
 
-## The simplest UI
+### Using a GUI
 
 There's a few projects like
 [Open WebUI](https://github.com/open-webui/open-webui)
@@ -91,3 +94,7 @@ Play around with different models and settings. The optimal
 configuration will depend on your use-case.
 
 ![Uploading a file](/assets/images/2026-09-18-asking-questions.png)
+
+## Selecting a model
+
+### Exploring Hugging Face
