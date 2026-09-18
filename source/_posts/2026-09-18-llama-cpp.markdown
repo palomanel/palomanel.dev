@@ -87,3 +87,7 @@ important insights into performance. Watch out for resource starvation.
 You'll probably want to learn about quantization and other
 [performance techniques](https://medium.com/@ekansh.jain2011/squeezing-every-drop-of-performance-out-of-llama-cpp-the-practitioners-guide-to-local-ai-2bcc3663f06f)
 that can help you pick the right model and parameters for your use-case.
+Play around with different models and settings. The optimal
+configuration will depend on your use-case.
+
+![Uploading a file](/assets/images/2026-09-18-asking-questions.png)
