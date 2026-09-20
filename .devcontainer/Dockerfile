@@ -4,8 +4,8 @@ FROM ubuntu:26.04
 # Prevent prompts during package installs
 ENV DEBIAN_FRONTEND=noninteractive
 # Set locale settings
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 # Install dependencies
 RUN apt-get update \
