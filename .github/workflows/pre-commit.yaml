@@ -12,12 +12,9 @@ permissions:
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.14"
       - uses: actions/cache@v6
         with:
           path: ~/.cache/pre-commit
