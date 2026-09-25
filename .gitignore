@@ -9,3 +9,5 @@ vendor/
 # Ignore system files
 .DS_Store
 Thumbs.db
+# Ignore log output
+nohup.out

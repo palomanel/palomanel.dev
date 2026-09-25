@@ -7,16 +7,19 @@ categories: genai llama.cpp development
 
 There's an excellent article explaining why
 [Friends Don't Let Friends Use Ollama](https://sleepingrobots.com/dreams/stop-using-ollama/)
-, so I won't delve into that. The main issue for me is
+, so I won't delve into details. The main issue for me is
 the `ollama` product is not actually Open Source software.
 So I decided use
 [llama.cpp](https://github.com/ggml-org/llama.cpp)
 and [Hugging Face](https://huggingface.co/) directly.
 
-My main curiosity was understanding if llama.cpp
+As I set out to replace this tool in my work belt
+my main curiosity was understanding if llama.cpp
 performance would be worse because it doesn't support MLX. As I peered into the
 question I discovered the answer is nuanced:
 [Why MLX Has Fewer Parameters Than llama.cpp, and Why That Doesn’t Make It Worse](https://medium.com/@michael.hannecke/llama-cpp-vs-mlx-on-apple-mx-775ee59df0ee).
+
+The following notes cover my experience during the migration.
 
 ## Getting Started
 
