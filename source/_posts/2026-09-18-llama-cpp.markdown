@@ -1,0 +1,106 @@
+---
+layout: post
+title:  "You should use llama.cpp"
+date:   2026-09-18
+categories: genai llama.cpp development
+---
+
+There's an excellent article explaining why
+[Friends Don't Let Friends Use Ollama](https://sleepingrobots.com/dreams/stop-using-ollama/)
+, so I won't delve into details. The main issue for me is
+the `ollama` product is not actually Open Source software.
+So I decided use
+[llama.cpp](https://github.com/ggml-org/llama.cpp)
+and [Hugging Face](https://huggingface.co/) directly.
+
+As I set out to replace this tool in my work belt
+my main curiosity was understanding if llama.cpp
+performance would be worse because it doesn't support MLX. As I peered into the
+question I discovered the answer is nuanced:
+[Why MLX Has Fewer Parameters Than llama.cpp, and Why That Doesn’t Make It Worse](https://medium.com/@michael.hannecke/llama-cpp-vs-mlx-on-apple-mx-775ee59df0ee).
+
+The following notes cover my experience during the migration.
+
+## Getting Started
+
+### Serving a model
+
+For a step-by-step overview, check
+[How to run llama.cpp on Mac in 2025: Local AI on Apple Silicon](https://t81dev.medium.com/how-to-run-llama-cpp-on-mac-in-2025-local-ai-on-apple-silicon-2e4f8aba70e4)
+.
+
+The following code will install `llama.cpp`, download a model from
+[HuggingFace](https://huggingface.co/),
+and then drop you into a conversation with the model:
+
+```bash
+brew install llama.cpp
+llama-cli -hf ggml-org/gemma-3-1b-it-GGUF -p "Hello, who are you?"
+```
+
+To start an interactive conversation execute:
+
+```bash
+llama-cli -m ggml-org/gemma-3-1b-it-GGUF--color on -i
+```
+
+You'll be greeted with some information:
+
+```text
+Okay, you’ve just run the `llama-cli` command! Let’s break down what that does:
+
+*   **`llama-cli`:** This is the command-line interface for interacting with a language model like me.
+*   **`-m gemma-3-4b-it-q4_0.gguf`:** This specifies the model you want to use.  `gemma-3-4b-it-q4_0.gguf` is the name of the model file. GGUF is a format that's commonly used for quantized models, meaning they're smaller and require less memory.
+*   **`--color on`:** This enables color-coding in the output, making the text easier to read.
+*   **`-i`:** This tells `llama-cli` to run the model in interactive mode.  This means you can type prompts and get responses directly.
+
+**Basically, you're telling `llama-cli` to load and start using the Gemma 3.4b model, in a color-coded, interactive way.**
+
+**What do you want to do now?**  Do you want me to:
+
+*   Give you a prompt?
+*   Ask you a question?
+*   Or something else?
+```
+
+### Using a GUI
+
+There's a few projects like
+[Open WebUI](https://github.com/open-webui/open-webui)
+that provide a user-friendly interface using the OpenAI API.
+However nowadays llama.cpp ships a modern chat interface built right
+into `llama serve`, with support for multimodal input, MCPs and more.
+
+Let's start serving the model we downloaded:
+
+```bash
+llama-server ggml-org/gemma-3-1b-it-GGUF --port 8080
+```
+
+[llama-ui](https://llama.app/docs/webui) will be available at
+`http://127.0.0.1:8080`.
+
+![llana-server also starts llama-ui](/assets/images/2026-09-18-llama-ui.png)
+
+You can ask questions, upload files and have deep conversations with the model
+you selected. Let's ask something:
+
+> What use-cases can llama-ui support?
+
+![You AI assistant is ready](/assets/images/2026-09-18-llama-ui-features.png)
+
+Pick models which fit into your available memory, in general you want the GPU
+to do all the reasoning work. The output from `ollama-serve` will provide
+important insights into performance. Watch out for resource starvation.
+
+You'll probably want to learn about quantization and other
+[performance techniques](https://medium.com/@ekansh.jain2011/squeezing-every-drop-of-performance-out-of-llama-cpp-the-practitioners-guide-to-local-ai-2bcc3663f06f)
+that can help you pick the right model and parameters for your use-case.
+Play around with different models and settings. The optimal
+configuration will depend on your use-case.
+
+![Uploading a file](/assets/images/2026-09-18-asking-questions.png)
+
+## Selecting a model
+
+### Exploring Hugging Face
