@@ -19,15 +19,17 @@ performance would be worse because it doesn't support MLX. As I peered into the
 question I discovered the answer is nuanced:
 [Why MLX Has Fewer Parameters Than llama.cpp, and Why That Doesn’t Make It Worse](https://medium.com/@michael.hannecke/llama-cpp-vs-mlx-on-apple-mx-775ee59df0ee).
 
-The following notes cover my experience during the migration.
+I also revisited the whole process of selecting a model that fits both a
+specific use-case and the available hardware.
 
 ## Getting Started
 
-### Serving a model
-
 For a step-by-step overview, check
 [How to run llama.cpp on Mac in 2025: Local AI on Apple Silicon](https://t81dev.medium.com/how-to-run-llama-cpp-on-mac-in-2025-local-ai-on-apple-silicon-2e4f8aba70e4)
-.
+for now we're going to jump right in using a small model that should fit in most
+machines.
+
+### Serving a model
 
 The following code will install `llama.cpp`, download a model from
 [HuggingFace](https://huggingface.co/),
@@ -101,6 +103,43 @@ configuration will depend on your use-case.
 
 ![Uploading a file](/assets/images/2026-09-18-asking-questions.png)
 
-## Selecting a model
+## Picking a model from Hugging Face
 
-### Exploring Hugging Face
+Hugging Face was [founded in 2016](https://en.wikipedia.org/wiki/Hugging_Face),
+their first product was a chatbot aimed at teenagers. During the following AI
+boom the company became widely known as it provides resources for anyone
+building Open Source AI. In August 2026 they were acquired by Nvidia.
+
+There's thousands of open-weight models available from their directory.
+An open-weight model is a system where the trained numerical parameters
+(weights) are publicy available to anyone to download, run locally, and fine
+tune.
+
+### Important concepts
+
+To be able to navigate the model directory it's necessary to understand some
+concepts. I'll just touch on the most important ones.
+
+#### Task
+
+You can filter models on the type of task they've been created to perform.
+You can start simple with `Text Generation` or `Image-to-text`. Keep in mind
+that some tasks require some heavy-lifting like `Text-to-Image` or
+`Text-to-Video`.
+
+If you're trying to do something specific it's worthwhile to dive into
+into the hierarchy. For instance under `Computer Vision` you have
+`Object Detection`, `Depth Estimation`, `Image-to-3d`, etc.
+
+#### Language
+
+The (human) language the model needs to understand. Unsurprisingly the most
+common language is English.
+
+#### License
+
+There's a lot of [Open Source licenses](https://opensource.org/licenses)
+each with their own set of quirks and requirements. Depending on the type
+of work you're doing with your model it's a good idea to understand what's
+imposed by the license. You might have restrictions on commercial use
+for instance, or you might be limited on fine-tuning methods.
