@@ -112,15 +112,38 @@ building Open Source AI. In August 2026 they were acquired by Nvidia.
 
 There's thousands of open-weight models available from their directory.
 An open-weight model is a system where the trained numerical parameters
-(weights) are publicy available to anyone to download, run locally, and fine
+(weights) are publicly available to anyone to download, run locally, and fine
 tune.
-
-### Important concepts
 
 To be able to navigate the model directory it's necessary to understand some
 concepts. I'll just touch on the most important ones.
 
-#### Task
+### Hugging Face features
+
+Anybody can create a free user account on Hugging Face, that will enable you
+to:
+- host a model (whether you've created it from scratch, fine-tuned or merged
+  existing ones)
+- provide information about your hardware and use-case so it's easier to
+  select a model
+
+Like in other artifact repositories (i.e. Docker Hub), the name of the author
+or organisation that created the model will be part of the resource identifier.
+In the example above `ggml-org/gemma-3-1b-it-GGUF`, the organisation `ggml-org`
+uploaded a model called `gemma-3-1b-it-GGUF`.
+
+The model search UI has a couple of useful filters:
+- Toggle `Base only` to hide quantisations, fine-tunes, adapters and merges
+- Models with `Inference Available` can be used as a service, running
+  in the provider's infrastructure
+
+In each model's homepage you will find all of the available information. Of
+course your mileage may vary, depending on the provider. Some models have lots
+of information including recommended use-cases, benchmarks, and even scientific
+papers. Metadata like the model's lineage is also available. Some community
+provided models will have very little content, be careful with those.
+
+### Task
 
 You can filter models on the type of task they've been created to perform.
 You can start simple with `Text Generation` or `Image-to-text`. Keep in mind
@@ -131,12 +154,12 @@ If you're trying to do something specific it's worthwhile to dive into
 into the hierarchy. For instance under `Computer Vision` you have
 `Object Detection`, `Depth Estimation`, `Image-to-3d`, etc.
 
-#### Language
+### Language
 
 The (human) language the model needs to understand. Unsurprisingly the most
 common language is English.
 
-#### License
+### License
 
 There's a lot of [Open Source licenses](https://opensource.org/licenses)
 each with their own set of quirks and requirements. Depending on the type
