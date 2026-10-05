@@ -5,17 +5,16 @@ date:   2026-09-18
 categories: genai llama.cpp development
 ---
 
-There's an excellent article explaining why
-[Friends Don't Let Friends Use Ollama](https://sleepingrobots.com/dreams/stop-using-ollama/)
-, so I won't delve into details. The main issue for me is
-the `ollama` product is not actually Open Source software.
-I switched to using
+There is an excellent article explaining why
+[Friends Don't Let Friends Use Ollama](https://sleepingrobots.com/dreams/stop-using-ollama/),
+so I won't delve into details. My main issue is that the `ollama` product is
+not actually open-source software. I switched to using
 [llama.cpp](https://github.com/ggml-org/llama.cpp)
 and [Hugging Face](https://huggingface.co/) directly.
 
-My main concern was whether llama.cpp
-performance would be worse because it doesn't support MLX. As I peered into the
-question I discovered the answer is nuanced:
+My main concern was whether `llama.cpp` performance would be worse because it
+doesn't support MLX. As I dug into the question, I discovered the answer is
+nuanced:
 [Why MLX Has Fewer Parameters Than llama.cpp, and Why That Doesn’t Make It Worse](https://medium.com/@michael.hannecke/llama-cpp-vs-mlx-on-apple-mx-775ee59df0ee).
 
 I also revisited the whole process of selecting a model that fits both a
@@ -69,15 +68,15 @@ llama-server -hf ggml-org/gemma-3-1b-it-GGUF --port 8080
 
 ![llama-server also starts llama-ui](/assets/images/2026-10-05-llama-ui.png)
 
-You can ask questions, upload files and have deep conversations with the model
+You can ask questions, upload files, and have deep conversations with the model
 you selected. Let's ask something:
 
 > What use-cases can llama-ui support?
 
 ![You AI assistant is ready](/assets/images/2026-10-05-llama-ui-features.png)
 
-Choose models that fit into your available memory, in general you want the GPU
-to do all the reasoning work. The output from `ollama-server` will provide
+Choose models that fit within your available memory. In general, you want the GPU
+to do the reasoning work. The output from `ollama-server` will provide
 important insights into performance. Watch out for resource starvation.
 
 You'll probably want to learn about quantization and other
@@ -90,10 +89,10 @@ configuration will depend on your use-case.
 
 ## Picking a model from Hugging Face
 
-Hugging Face was [founded in 2016](https://en.wikipedia.org/wiki/Hugging_Face),
-their first product was a chatbot aimed at teenagers. During the following AI
-boom the company became widely known as it provides resources for anyone
-building Open Source AI. In August 2026 they were acquired by Nvidia.
+Hugging Face was [founded in 2016](https://en.wikipedia.org/wiki/Hugging_Face).
+Their first product was a chatbot aimed at teenagers. During the following AI
+boom, the company became widely known as it provides resources for anyone
+building open-source AI. In August 2026, they were acquired by Nvidia.
 
 There are thousands of open-weight models available from their directory.
 An open-weight model is a system where the trained numerical parameters
@@ -152,27 +151,27 @@ common language is English.
 
 ### License
 
-There's a lot of [Open Source licenses](https://opensource.org/licenses)
+There are a lot of [open-source licenses](https://opensource.org/licenses),
 each with their own set of quirks and requirements. Depending on the type
-of work you're doing with your model it's a good idea to understand what's
-imposed by the license. You might have restrictions on commercial use
-for instance, or you might be limited on fine-tuning methods.
+of work you're doing with your model, it's a good idea to understand what's
+imposed by the license. You might have restrictions on commercial use, for
+instance, or you might be limited on fine-tuning methods.
 
 ### Model parameters
 
-In an [Large Language model](https://en.wikipedia.org/wiki/Large_language_model)
+In a [large language model](https://en.wikipedia.org/wiki/Large_language_model),
 the parameters are the internal numerical values
 (weights and biases) that store the model's understanding of the language and
-guide it how it predicts the next word.
+guide how it predicts the next word.
 
 Typically, LLMs are trained with single or half-precision floating point
 numbers (float32 and float16). One float16 has 16 bits, or 2 bytes, and so one
 billion parameters require 2 gigabytes.
 
-There's plenty of models that have been fine-tuned to run in specific hardware.
-Choose a model that fits your available memory to maximize inference speed.
-The largest models typically have more than 100 billion parameters, which
-places them outside the range of most consumer electronics.
+There are plenty of models that have been fine-tuned to run on specific
+hardware. Choose a model that fits your available memory to maximize inference
+speed. The largest models typically have more than 100 billion parameters,
+which places them outside the range of most consumer electronics.
 
 Post-training **quantization** reduces parameter precision to lower memory
 use and improve throughput. The trade-off is quality loss,
@@ -205,9 +204,9 @@ hyperparameters (such as the learning rate and the batch size of an optimizer).
 
 ### Inference controls
 
-Here a few settings that might be worth to consider when running a model.
-They are the runtime sampling parameters that control how the next token
-will be selected:
+Here are a few settings worth considering when running a model.
+They are the runtime sampling parameters that control how the next token will
+be selected:
 
 - **Temperature**: Controls how creative or random the AI's response will be.
   Lower values give predictable, factual answers; higher values produce more
@@ -216,3 +215,9 @@ will be selected:
   based on a cumulative probability threshold.
 - **Top-K**: Limits the model's choice to a fixed number of the most likely
   next words.
+
+## Closing Thoughts
+
+The post was written by me, and reviewed
+by AI for grammar and technical correctness.
+I hope it has been useful!
