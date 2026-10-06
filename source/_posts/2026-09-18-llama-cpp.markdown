@@ -8,19 +8,27 @@ categories: genai llama.cpp development
 There is an excellent article explaining why
 [Friends Don't Let Friends Use Ollama](https://sleepingrobots.com/dreams/stop-using-ollama/),
 so I won't delve into details. My main issue is that the `ollama` product is
-not actually open-source software. I switched to using
-[llama.cpp](https://github.com/ggml-org/llama.cpp)
-and [Hugging Face](https://huggingface.co/) directly.
+not actually open-source software so I decided to switch.
 
-Below you can find a quick tour of how to install and use `llama.cpp`
-My main concern was whether the engine's performance would be worse because
+The [llama.cpp](https://github.com/ggml-org/llama.cpp) project is a LLM
+inference engine written in C/C++ that supports many large language models.
+It was started in 2023 by Georgi Gerganov, after some prior work on other
+inference engines. The project builds upon the [ggml](https://github.com/ggml-org/ggml)
+library and has become a de-facto standard.
+
+Below you can find a quick tour of how to install and use `llama.cpp`.
+The transition was seamless, and I'll stick with this configuration.
+Initially my concern was whether the engine's performance would be worse because
 it doesn't support MLX. As I dug into the question, I discovered the answer
 is nuanced:
 [Why MLX Has Fewer Parameters Than llama.cpp, and Why That Doesn’t Make It Worse](https://medium.com/@michael.hannecke/llama-cpp-vs-mlx-on-apple-mx-775ee59df0ee).
+At the end of the day, more configuration options and an open
+ecosystem have won me over.
 
 I also revisited the whole process of selecting a model that fits both a
-specific use-case and the available hardware. In this post I touch on some
-of the important things to know when navigating Hugging Face.
+specific use-case and the available hardware. In this post you can
+find an explanation of some basic ML lexicon, these concepts should help
+navigating Hugging Face.
 
 ## Getting Started
 
