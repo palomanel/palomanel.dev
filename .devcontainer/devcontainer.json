@@ -1,33 +1,43 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/jekyll
 {
-	"name": "Jekyll",
-
-	// use a Dockerfile file. More info: https://containers.dev/guide/dockerfile
-    "build": {
-        // Path is relative to the devcontainer.json file.
-        "dockerfile": "Dockerfile"
-    },
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Run commands after the container is created.
-	"postCreateCommand": "pre-commit install --install-hooks",
-
-	// Use 'postStartCommand' to run commands after the container starts.
-	"postStartCommand": "cd ${containerWorkspaceFolder}/source && jekyll clean && nohup jekyll serve --livereload &",
-
-	// Configure tool-specific properties.
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"DavidAnson.vscode-markdownlint",
-				"GitHub.copilot",
-				"GitHub.copilot-chat",
-				"GitHub.vscode-github-actions",
-				"ms-azuretools.vscode-containers"
-			]
-		}
-	}
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "DavidAnson.vscode-markdownlint",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "GitHub.vscode-github-actions",
+        "ms-azuretools.vscode-containers"
+      ],
+      "settings": {
+        "task.allowAutomaticTasks": "on",
+        "tasks": {
+          "tasks": [
+            {
+              "command": "jekyll clean && jekyll serve --livereload",
+              "group": "test",
+              "isBackground": true,
+              "label": "Jekyll: serve",
+              "options": {
+                "cwd": "${workspaceFolder}/source"
+              },
+              "runOptions": {
+                "runOn": "folderOpen"
+              },
+              "type": "shell"
+            }
+          ],
+          "version": "2.0.0"
+        }
+      }
+    }
+  },
+  "forwardPorts": [
+    4000,
+    35729
+  ],
+  "name": "Jekyll",
+  "postCreateCommand": "pre-commit install --install-hooks"
 }
