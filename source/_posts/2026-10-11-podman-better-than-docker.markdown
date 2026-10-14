@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Podman is better than Docker"
+title:  "Switching to Podman"
 date:   2026-10-11
 categories: containers podman docker development
 ---
@@ -20,9 +20,72 @@ up and running for different operating systems.
 
 ## Docker Vs Podman
 
+This picture of the Docker mascot and the Podman mascot in a Street Fighter
+title screen was generated using AI, no animals were hurt!
+
 ![Moby Vs Selkie](/assets/images/2026-10-11-moby-vs-selkie.jpg)
 
-[Podman Vs Docker](https://www.xurrent.com/blog/podman-vs-docker-complete-2025-comparison-guide-for-devops-teams)
+The [Docker Engine](https://docs.docker.com/engine/)
+was first released in 2013 and it was
+quite disruptive at the time. Virtualization had finally taken hold as
+much more practical way to manage your servers, and the concept of a
+lightweight package that could be easily deployed anywhere immediately
+proved useful.
+
+The metaphor benind the project was powerful and simple. A shipping container
+neatly isolates its contents (the goods being transported) from the logistical
+chain (the vehicle that actually moves things around). A shipment of bananas
+will travel by ship side by side with user electronics. Upon arriving to port
+both containers are unloaded onto trucks that will take the load to their
+final destination. You don't need special boats or trucks to carry bananas,
+these vehicles just need to be prepared to carry containers.
+
+A software container does the same: you package your software, then you deploy
+it anywhere. From a developer machine to a cluster or a managed
+serverless service. No more "but it worked on my machine", building and
+distributing software became a lot easier. Beyond the great idea, the fact
+Docker was Open Source greatly helped adoption.
+
+Here's a view of the Docker architecture, inspired in the official
+architecture diagram (original source: [docs.docker.com](https://docs.docker.com/get-started/docker-overview/)).
+The architecture is a classical client-server pattern. The userspace client will
+communicate a daemon that lives in privileged space.
+
+![Docker Architecture](/assets/images/2026-10-11-docker-architecture.jpg)
+
+Fast forward to today. Docker is not exactly Open Source anymore, but the
+ecosystem has flourished.
+The [Open Container Initiative (OCI)](https://opencontainers.org/)
+handles the open industry standards around container formats and runtimes.
+And there's a lot of tools that use those standards.
+
+I'm interested in a tool that supports my local development workflow, and
+I decided to make a comparison with [Podman](https://podman.io/). The fact
+that it is fully Open Source but has a well established corporate sponsor
+makes it a credible choice. Let's see how they fare against each other.
+
+Let's have a look at the Podman architecture
+(original source: [developers.redhat.com](https://developers.redhat.com/blog/2019/02/21/podman-and-buildah-for-docker-users)).
+The main advantages are that it's daemonless and rootless. Containers are a
+native Linux technology, so Podman excels there, for other operating
+systems podman will actually need a virtual machine (exactly as Docker).
+
+![Podman Architecture](/assets/images/2026-10-11-podman-architecture.jpg)
+
+if we do a quick evaluation Podman actually wins in most of the dimensions.
+With a more modern and secure architecture, while being compatible with
+everything we've learned about using containers. Regarding performance
+[Podman is faster in most operations](https://www.diva-portal.org/smash/get/diva2:1475598/FULLTEXT01.pdf)
+although your experience may vary depending on your configuration and OS.
+
+| Feature | Docker | Podman |
+| --- | --- | --- |
+| **Architecture** | Uses the `dockerd` daemon | Daemonless |
+| **Security** | Requires root unless configured manually | Rootless by default, extra configuration required to bind an app to privileged ports (0-1023) |
+| **Performance** | Startup ~1.2s, runtime memory ~100 Mb | Startup ~0.8s, runtime memory ~85 MB |
+| **CLI** | `docker` | `podman` uses the same options as `docker` |
+| **GUI** | Docker Desktop requires a paid license for Enterprise | Podman Desktop is free |
+| **Orchestration** | `docker-compose` | `podman-compose` or `docker-compose` |
 
 ## Podman on Linux
 
